@@ -8,7 +8,7 @@ import random
 import PIL
 
 # Set how many rows and columns we will have
-ROW_COUNT = 24
+ROW_COUNT = 22
 COLUMN_COUNT = 10
 
 # This sets the WIDTH and HEIGHT of each grid location
@@ -137,10 +137,30 @@ class MyGame(arcade.Window):
         Randomly grab a new stone and set the stone location to the top.
         If we immediately collide, then game-over.
         """
-        pass
+        self.stone = random.choice(tetris_shapes)
+        self.stone_x = int(COLUMN_COUNT / 2 - len(self.stone[0]) / 2)
+        self.stone_y = 0
+
+        if check_collision(self.board, self.stone, (self.stone_x, self.stone_y)):
+            self.game_over = True
 
     def setup(self):
-       pass
+        self.board = new_board()
+
+        self.board_sprite_list = arcade.SpriteList()
+        for row in range(len(self.board)):
+            for column in range(len(self.board[0])):
+                sprite = arcade.Sprite()
+                for texture in texture_list:
+                    sprite.append_texture(texture)
+                sprite.set_texture(0)
+                sprite.center_x = (MARGIN + WIDTH) * column + MARGIN + WIDTH // 2
+                sprite.center_y = SCREEN_HEIGHT - (MARGIN + HEIGHT) * row + MARGIN + HEIGHT // 2
+
+                self.board_sprite_list.append(sprite)
+
+        self.new_stone()
+        self.update_board()
 
     def drop(self):
         """
