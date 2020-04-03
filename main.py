@@ -8,7 +8,7 @@ import random
 import PIL
 
 # Set how many rows and columns we will have
-ROW_COUNT = 24
+ROW_COUNT = 22
 COLUMN_COUNT = 10
 
 # This sets the WIDTH and HEIGHT of each grid location
@@ -107,8 +107,8 @@ def join_matrixes(matrix_1, matrix_2, matrix_2_offset):
 
 def new_board():
     """ Create a grid of 0's. Add 1's to the bottom for easier collision detection. """
-    board = [[0 for _x in range(COLUMN_COUNT)
-               for _y in range(ROW_COUNT)]]
+    board = [[0 for _x in range(COLUMN_COUNT)]
+               for _y in range(ROW_COUNT)]
     board += [[1 for _x in range(COLUMN_COUNT)]]
     return board
 
@@ -180,7 +180,7 @@ class MyGame(arcade.Window):
                 while True:
                     for i, row in enumerate(self.board[:-1]):
                         if 0 not in row:
-                            self.board = remove_row(self.board, 1)
+                            self.board = remove_row(self.board, i)
                             break
                     else:
                         break
