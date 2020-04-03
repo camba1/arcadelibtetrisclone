@@ -219,17 +219,36 @@ class MyGame(arcade.Window):
         Draw the grid. Used to draw the falling stones. The board is drawn
         by the sprite list.
         """
-        pass
+        # Draw the grid
+        for row in range(len(grid)):
+            for column in range(len(grid[0])):
+                # Figure out what color to draw the box
+                if grid[row][column]:
+                    color = colors[grid[row][column]]
+                    # Do the math to figure out where the box is
+                    x = (MARGIN + WIDTH) * (column + offset_x) + MARGIN + WIDTH // 2
+                    y = SCREEN_HEIGHT - (MARGIN + HEIGHT) * (row + offset_y) + MARGIN + HEIGHT // 2
+
+                    # Draw the box
+                    arcade.draw_rectangle_filled(x, y, WIDTH, HEIGHT, color)
 
     def update_board(self):
         """
         Update the sprite list to reflect the contents of the 2d grid
         """
-        pass
+        for row in range(len(self.board)):
+            for column in range(len(self.baord[0])):
+                v = self.board[row][column]
+                i = row * COLUMN_COUNT + column
+                self.board_sprite_list[i].set_texture(v)
 
     def on_draw(self):
         """ Render the screen. """
-        pass
+
+        # This command has to happen before we start drawing
+        arcade.start_render()
+        self.board_sprite_list.draw()
+        self.draw_grid(self.stone, self.stone_x, self.stone_y)
 
 def main():
     """ Create the game window, setup, run """
