@@ -101,7 +101,7 @@ def join_matrixes(matrix_1, matrix_2, matrix_2_offset):
 
 def new_board():
     """ Create a grid of 0's. Add 1's to the bottom for easier collision detection. """
-    board = [[ 0 for _x in range(COLUMN_COUNT)
+    board = [[0 for _x in range(COLUMN_COUNT)
                for _y in range(ROW_COUNT)]]
     board += [[1 for _x in range(COLUMN_COUNT)]]
     return board
@@ -112,8 +112,19 @@ class MyGame(arcade.Window):
 
     def __init__(self, width, height, title):
         """ Set up the application. """
+        super().__init__(width,height,title)
+        arcade.set_background_color(arcade.color.WHITE)
 
-        pass
+        self.board = None
+        self.frame_count = 0
+        self.game_over = False
+        self.pause = False
+        self.board_sprite_list = None
+
+        self.stone = None
+        self.stone_x = 0
+        self.stone_y = 0
+
 
     def new_stone(self):
         """
