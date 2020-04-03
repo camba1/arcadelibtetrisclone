@@ -124,7 +124,7 @@ class MyGame(arcade.Window):
         self.board = None
         self.frame_count = 0
         self.game_over = False
-        self.pause = False
+        self.paused = False
         self.board_sprite_list = None
 
         self.stone = None
@@ -152,11 +152,28 @@ class MyGame(arcade.Window):
           Update sprite list with stones
           Create a new stone
         """
-        pass
+
+        if not self.game_over and not self.paused:
+            self.stone_y += 1
+            if check_collision(self.board, self.stone, (self.stone_x, self.stone_y)):
+                self.board = join_matrixes(self.board, self.stone, (self.stone_x, self.stone_y))
+                while True:
+                    for i, row in enumerate(self.board[:-1]):
+                        if 0 not in row:
+                            self.board = remove_row(self.board, 1)
+                            break
+                    else:
+                        break
+                self.update_board()
+                self.new_stone()
 
     def rotate_stone(self):
         """ Rotate the stone, check collision. """
-        pass
+        if not self.game_over and not self.paused:
+            new_stone = rotate_clockwise(self.stone)
+            if not check_collision(self.board, new_stone, (self.stone_x, self.stone_y)):
+                self.stone = new_stone
+
 
     def on_update(self, dt):
         """ Update, drop stone if warrented """
