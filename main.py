@@ -61,8 +61,12 @@ tetris_shapes = [
 
 def create_textures():
     """ Create a list of images for sprites based on the global colors. """
-    return ""
-    pass
+    new_textures = []
+    for color in colors:
+        # noinspection PyUnresolvedReferences
+        image = PIL.Image.new('RGB', (WIDTH, HEIGHT), color)
+        new_textures.append(arcade.Texture(str(color), image=image))
+    return new_textures
 
 
 texture_list = create_textures()
@@ -70,7 +74,7 @@ texture_list = create_textures()
 
 def rotate_clockwise(shape):
     """ Rotates a matrix clockwise """
-    pass
+    return [[shape[y][x] for y in range(len(shape))] for x in range(len(shape[0]) - 1, -1, -1)]
 
 
 def check_collision(board, shape, offset):
