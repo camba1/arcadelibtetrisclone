@@ -88,12 +88,19 @@ def remove_row(board, row):
 
 def join_matrixes(matrix_1, matrix_2, matrix_2_offset):
     """ Copy matrix 2 onto matrix 1 based on the passed in x, y offset coordinate """
-    pass
+    offset_x, offset_y = matrix_2_offset
+    for cy, row in enumerate(matrix_2):
+        for cx, val in enumerate(row):
+            matrix_1[cy + offset_y - 1] [cx + offset_x] += val
+    return matrix_1
 
 
 def new_board():
     """ Create a grid of 0's. Add 1's to the bottom for easier collision detection. """
-    pass
+    board = [[ 0 for _x in range(COLUMN_COUNT)
+               for _y in range(ROW_COUNT)]]
+    board += [[1 for _x in range(COLUMN_COUNT)]]
+    return board
 
 
 class MyGame(arcade.Window):
