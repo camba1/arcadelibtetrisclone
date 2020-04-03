@@ -197,11 +197,20 @@ class MyGame(arcade.Window):
 
     def on_update(self, dt):
         """ Update, drop stone if warrented """
-        pass
+        self.frame_count += 1
+        if self.frame_count % 10 == 0:
+            self.drop()
 
     def move(self, delta_x):
         """ Move the stone back and forth based on delta x. """
-        pass
+        if not self.game_over and not self.paused:
+            new_x = self.stone_x + delta_x
+            if new_x < 0:
+                new_x = 0
+            if new_x > COLUMN_COUNT - len(self.stone[0]):
+                new_x = COLUMN_COUNT - len(self.stone[0])
+            if not check_collision(self.board, self.stone, (new_x, self.stone_y)):
+                self.stone_x = new_x
 
     def on_key_press(self, key, modifiers):
         """
@@ -211,7 +220,14 @@ class MyGame(arcade.Window):
         Rotate stone,
         or drop down
         """
-        pass
+        if key == arcade.key.LEFT:
+            self.move(-1)
+        elif key == arcade.key.RIGHT:
+            self.move(1)
+        elif key == arcade.key.UP:
+            self.rotate_stone()
+        elif key == arcade.key.DOWN:
+            self.drop()
 
     # noinspection PyMethodMayBeStatic
     def draw_grid(self, grid, offset_x, offset_y):
