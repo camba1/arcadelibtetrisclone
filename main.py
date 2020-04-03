@@ -8,7 +8,7 @@ import random
 import PIL
 
 # Set how many rows and columns we will have
-ROW_COUNT = 22
+ROW_COUNT = 24
 COLUMN_COUNT = 10
 
 # This sets the WIDTH and HEIGHT of each grid location
@@ -253,7 +253,7 @@ class MyGame(arcade.Window):
         Update the sprite list to reflect the contents of the 2d grid
         """
         for row in range(len(self.board)):
-            for column in range(len(self.baord[0])):
+            for column in range(len(self.board[0])):
                 v = self.board[row][column]
                 i = row * COLUMN_COUNT + column
                 self.board_sprite_list[i].set_texture(v)
