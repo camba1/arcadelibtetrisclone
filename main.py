@@ -82,12 +82,18 @@ def check_collision(board, shape, offset):
     See if the matrix stored in the shape will intersect anything
     on the board based on the offset. Offset is an (x, y) coordinate.
     """
-    pass
+    off_x, off_y = offset
+    for cy, row in enumerate(shape):
+        for cx, cell in enumerate(row):
+            if cell and board[cy + off_y][cx + off_x]:
+                return True
+    return False
 
 
 def remove_row(board, row):
     """ Remove a row from the board, add a blank row on top. """
-    pass
+    del board[row]
+    return [[0 for _ in range(COLUMN_COUNT)]] + board
 
 
 def join_matrixes(matrix_1, matrix_2, matrix_2_offset):
