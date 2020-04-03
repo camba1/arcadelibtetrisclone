@@ -228,6 +228,8 @@ class MyGame(arcade.Window):
             self.rotate_stone()
         elif key == arcade.key.DOWN:
             self.drop()
+        elif key == arcade.key.P:
+            self.paused = not self.paused
 
     # noinspection PyMethodMayBeStatic
     def draw_grid(self, grid, offset_x, offset_y):
